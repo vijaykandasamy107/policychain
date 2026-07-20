@@ -241,3 +241,128 @@ Blockchain.prototype.findBlockByIndex = function(index){
     );
 
 };
+/* ===========================================
+   PolicyChain
+   blockchain.js
+   Part 3
+===========================================*/
+
+// Create Blockchain Object
+const policyChain = new Blockchain();
+
+// Load Existing Chain
+policyChain.loadChain();
+
+// If no blocks exist, create Genesis Block
+if (policyChain.chain.length === 0) {
+
+    policyChain.chain.push(
+        policyChain.createGenesisBlock()
+    );
+
+    policyChain.saveChain();
+
+}
+
+// Add Insurance Document
+function addInsuranceDocument(documentName, owner, remarks) {
+
+    const data = {
+
+        documentName: documentName,
+
+        owner: owner,
+
+        remarks: remarks,
+
+        uploadedOn: new Date().toLocaleString()
+
+    };
+
+    policyChain.addBlock(data);
+
+    console.log("Document Added Successfully");
+
+    return policyChain.getLatestBlock();
+
+}
+
+// Verify Blockchain
+function verifyBlockchain() {
+
+    if (policyChain.isChainValid()) {
+
+        console.log("Blockchain Verified");
+
+        return true;
+
+    } else {
+
+        console.log("Blockchain Tampered");
+
+        return false;
+
+    }
+
+}
+
+// Display Blockchain
+function displayBlockchain() {
+
+    console.clear();
+
+    console.log("========= POLICYCHAIN BLOCKS =========");
+
+    policyChain.chain.forEach(block => {
+
+        console.log("--------------------------------");
+
+        console.log("Block :", block.index);
+
+        console.log("Timestamp :", block.timestamp);
+
+        console.log("Document :", block.data.documentName);
+
+        console.log("Owner :", block.data.owner);
+
+        console.log("Remarks :", block.data.remarks);
+
+        console.log("Previous Hash :", block.previousHash);
+
+        console.log("Hash :", block.hash);
+
+        console.log("Nonce :", block.nonce);
+
+    });
+
+}
+
+// Export Blockchain
+function exportBlockchain() {
+
+    return JSON.stringify(
+
+        policyChain.chain,
+
+        null,
+
+        2
+
+    );
+
+}
+
+// Current Status
+console.log(
+
+    "PolicyChain Ready"
+
+);
+
+console.log(
+
+    "Total Blocks :",
+
+    policyChain.getChainLength()
+
+);
