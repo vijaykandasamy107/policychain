@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PolicyChain Explorer</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<header>
+
+<h1>PolicyChain Explorer</h1>
+
+<p>View Blockchain Blocks</p>
+
+</header>
+
+<nav>
+
+<a href="index.html">Home</a>
+
+<a href="verify.html">Verify</a>
+
+<a href="explorer.html">Explorer</a>
+
+</nav>
+
+<div class="workflow">
+
+<h2>Blockchain Explorer</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Block</th>
+
+<th>Document</th>
+
+<th>Owner</th>
+
+<th>Timestamp</th>
+
+<th>Hash</th>
+
+</tr>
+
+</thead>
+
+<tbody id="blockTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script src="js/blockchain.js"></script>
+
+<script>
+
+const table=document.getElementById("blockTable");
+
+policyChain.chain.forEach(block=>{
+
+table.innerHTML+=`
+
+<tr>
+
+<td>${block.index}</td>
+
+<td>${block.data.documentName}</td>
+
+<td>${block.data.owner}</td>
+
+<td>${block.timestamp}</td>
+
+<td style="font-size:10px">
+
+${block.hash}
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+</script>
+
+</body>
+
+</html>
