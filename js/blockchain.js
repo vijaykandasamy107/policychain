@@ -115,3 +115,129 @@ class Blockchain {
     }
 
 }
+/* ===========================================
+   PolicyChain
+   blockchain.js
+   Part 2
+===========================================*/
+
+// Add New Block
+Blockchain.prototype.addBlock = function(data){
+
+    const newBlock = new Block(
+
+        this.chain.length,
+
+        new Date().toLocaleString(),
+
+        data,
+
+        this.getLatestBlock().hash
+
+    );
+
+    newBlock.mineBlock(this.difficulty);
+
+    this.chain.push(newBlock);
+
+    this.saveChain();
+
+};
+
+
+// Validate Blockchain
+Blockchain.prototype.isChainValid = function(){
+
+    for(let i=1;i<this.chain.length;i++){
+
+        const currentBlock = this.chain[i];
+
+        const previousBlock = this.chain[i-1];
+
+        if(currentBlock.hash !== currentBlock.calculateHash()){
+
+            return false;
+
+        }
+
+        if(currentBlock.previousHash !== previousBlock.hash){
+
+            return false;
+
+        }
+
+    }
+
+    return true;
+
+};
+
+
+// Save Blockchain
+Blockchain.prototype.saveChain = function(){
+
+    localStorage.setItem(
+
+        "policyChain",
+
+        JSON.stringify(this.chain)
+
+    );
+
+};
+
+
+// Load Blockchain
+Blockchain.prototype.loadChain = function(){
+
+    const storedChain = localStorage.getItem("policyChain");
+
+    if(storedChain){
+
+        this.chain = JSON.parse(storedChain);
+
+    }
+
+};
+
+
+// Display Blockchain
+Blockchain.prototype.printChain = function(){
+
+    console.log("========== POLICYCHAIN ==========");
+
+    console.table(this.chain);
+
+};
+
+
+// Get Blockchain Length
+Blockchain.prototype.getChainLength = function(){
+
+    return this.chain.length;
+
+};
+
+
+// Search Block by Hash
+Blockchain.prototype.findBlock = function(hash){
+
+    return this.chain.find(
+
+        block => block.hash === hash
+
+    );
+
+};
+
+
+// Search Block by Index
+Blockchain.prototype.findBlockByIndex = function(index){
+
+    return this.chain.find(
+
+        block => block.index === index
+
+    );
+
+};
