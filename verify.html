@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Verify Document</title>
+
+<link rel="stylesheet"
+href="css/style.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>PolicyChain</h1>
+
+<p>Upload Health Insurance Document</p>
+
+</header>
+
+<nav>
+
+<a href="index.html">Home</a>
+
+<a href="verify.html">Verify</a>
+
+<a href="explorer.html">Explorer</a>
+
+<a href="about.html">About</a>
+
+</nav>
+
+<div class="workflow">
+
+<h2>Upload Document</h2>
+
+<label>Document Name</label>
+
+<input
+type="text"
+id="documentName"
+placeholder="Proposal Form">
+
+<label>Owner Name</label>
+
+<input
+type="text"
+id="owner"
+placeholder="Customer Name">
+
+<label>Remarks</label>
+
+<textarea
+id="remarks"
+rows="4"
+placeholder="Medical Report"></textarea>
+
+<label>Select File</label>
+
+<input
+type="file"
+id="documentFile">
+
+<button
+id="uploadBtn">
+
+Generate Blockchain Block
+
+</button>
+
+<div
+id="result">
+
+</div>
+
+</div>
+
+<script src="js/blockchain.js"></script>
+
+<script src="js/upload.js"></script>
+
+</body>
+
+</html>
