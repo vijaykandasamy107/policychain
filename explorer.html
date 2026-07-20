@@ -1,21 +1,30 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 <script src="js/blockchain.js"></script>
 
 <script>
 const table = document.getElementById("blockTable");
 
-policyChain.chain.forEach(block => {
+try {
+    console.log(policyChain);
 
-    table.innerHTML += `
-    <tr>
-        <td>${block.index}</td>
-        <td>${block.data.documentName}</td>
-        <td>${block.data.owner}</td>
-        <td>${block.timestamp}</td>
-        <td style="font-size:10px;word-break:break-all;">
-            ${block.hash}
-        </td>
-    </tr>`;
+    table.innerHTML = "<tr><td colspan='5'>Blockchain Loaded. Blocks: " +
+        policyChain.chain.length +
+        "</td></tr>";
 
-});
+    policyChain.chain.forEach(block => {
+        table.innerHTML += `
+        <tr>
+            <td>${block.index}</td>
+            <td>${block.data?.documentName || "-"}</td>
+            <td>${block.data?.owner || "-"}</td>
+            <td>${block.timestamp}</td>
+            <td>${block.hash}</td>
+        </tr>`;
+    });
+
+} catch (e) {
+    table.innerHTML =
+        "<tr><td colspan='5'>ERROR: " + e.message + "</td></tr>";
+    console.error(e);
+}
 </script>
